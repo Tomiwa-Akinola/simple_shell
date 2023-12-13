@@ -173,14 +173,17 @@ int print_dec(int input, int fdes);
 char *conv_num(long int num, int base, int flags);
 void rem_com(char *buf);
 
-/* toem_builtin.c */
-int _myexit(pinfo_t *);
-int _mycd(pinfo_t *);
-int _myhelp(pinfo_t *);
+/* sh_builtin.c */
+int exit_(pinfo_t *inf);
+int cd_(pinfo_t *inf);
+int help_(pinfo_t *inf);
 
-/* toem_builtin1.c */
-int _myhistory(pinfo_t *);
-int _myalias(pinfo_t *);
+/* sh_builtin1.c */
+int history_(pinfo_t *inf);
+int undo_alias(pinfo_t *inf, char *str);
+int do_alias(pinfo_t *inf, char *str);
+int prt_alias(slist_t *nod);
+int alias_(pinfo_t *inf);
 
 /*_getline.c */
 ssize_t input_mybuf(pinfo_t *inf, char **buf, size_t *len);

@@ -54,14 +54,14 @@ int fnd_builtin(pinfo_t *inf)
 {
 	int i, built_in_ret = -1;
 	builtin_t builtintbl[] = {
-		{"exit", _myexit},
+		{"exit", exit_},
 		{"env", _myenv},
-		{"help", _myhelp},
-		{"history", _myhistory},
+		{"help", help_},
+		{"history", history_},
 		{"setenv", _mysetenv},
 		{"unsetenv", _myunsetenv},
-		{"cd", _mycd},
-		{"alias", _myalias},
+		{"cd", cd_},
+		{"alias", alias_},
 		{NULL, NULL}
 	};
 
