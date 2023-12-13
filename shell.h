@@ -162,7 +162,7 @@ int bfree(void **);
 
 /* atoi_.c */
 int interactive(pinfo_t *inf);
-int isdelim_(char c,char *delim);
+int isdelim_(char c, char *delim);
 int isalpha_(int c);
 int atoi_(char *s);
 
