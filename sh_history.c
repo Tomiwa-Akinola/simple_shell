@@ -31,7 +31,7 @@ char *gt_file_history(pinfo_t *inf)
 int write_hist(pinfo_t *inf)
 {
 	ssize_t fdes;
-	char *filename = gt_file_histoy(inf);
+	char *filename = gt_file_history(inf);
 	slist_t *node = NULL;
 
 	if (!filename)

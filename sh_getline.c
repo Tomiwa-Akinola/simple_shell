@@ -93,7 +93,7 @@ ssize_t get_dinput(pinfo_t *inf)
  * @j: size
  * Return: b
  */
-ssize_t reads_buf(pinfo_t *inf, char *buf, size_t *)
+ssize_t reads_buf(pinfo_t *inf, char *buf, size_t *j)
 {
 	ssize_t b = 0;
 

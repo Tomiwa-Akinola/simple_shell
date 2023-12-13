@@ -29,32 +29,31 @@ int mainsh(pinfo_t *inf, char **av)
 			_putchar('\n');
 		free_inf(inf, 0);
 	}
-	write_history(info);
-	free_info(info, 1);
-	if (!interactive(info) && info->status)
-		exit(info->status);
-	if (builtin_ret == -2)
+	write_hist(inf);
+	free_inf(inf, 1);
+	if (!interactive(inf) && inf->status)
+		exit(inf->status);
+	if (bn_ret == -2)
 	{
-		if (info->err_num == -1)
-			exit(info->status);
-		exit(info->err_num);
+		if (inf->err_cod == -1)
+			exit(inf->status);
+		exit(inf->err_cod);
 	}
-	return (builtin_ret);
+	return (bn_ret);
 }
 
 /**
- * find_builtin - finds a builtin command
- * @info: the parameter & return info struct
- *
- * Return: -1 if builtin not found,
- *			0 if builtin executed successfully,
- *			1 if builtin found but not successful,
- *			-2 if builtin signals exit()
+ * fnd_builtin - function to find a builtin command
+ * @inf: the parameter
+ * Return: -1 if builtin is not found,
+ * 0 if builtin is executed successfully,
+ * 1 if builtin is found but not successful,
+ *-2 if builtin signals exit
  */
-int find_builtin(info_t *info)
+int fnd_builtin(pinfo_t *inf)
 {
 	int i, built_in_ret = -1;
-	builtin_table builtintbl[] = {
+	builtin_t builtintbl[] = {
 		{"exit", _myexit},
 		{"env", _myenv},
 		{"help", _myhelp},
@@ -69,8 +68,8 @@ int find_builtin(info_t *info)
 	for (i = 0; builtintbl[i].type; i++)
 		if (_strcmp(info->argv[0], builtintbl[i].type) == 0)
 		{
-			info->line_count++;
-			built_in_ret = builtintbl[i].func(info);
+			inf->ln_count++;
+			built_in_ret = builtintbl[i].func(inf);
 			break;
 		}
 	return (built_in_ret);

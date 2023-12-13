@@ -69,7 +69,7 @@ typedef struct liststring
  * @status: return status of the last executed command
  * @cmd_buf: this is the address of pointer to cmd_buf, on if chaining
  * @cmd_buf_type: command type ||, &&, ;
- * @readfolder: folder to read line input
+ * @readfdes: reads file descriptor
  * @historycount: history line number count
  */
 typedef struct sendinfo
@@ -107,15 +107,15 @@ typedef struct sendinfo
 typedef struct builtin
 {
 	char *type;
-	int (*fun)(pinfo_t *);
+	int (*func)(pinfo_t *);
 } builtin_t;
 
 
-/* toem_shloop.c */
-int hsh(info_t *, char **);
-int find_builtin(info_t *);
-void find_cmd(info_t *);
-void fork_cmd(info_t *);
+/* loop_sh.c */
+int mainsh(pinfo_t *inf, char **av);
+int fnd_builtin(pinfo_t *inf);
+void fnd_cmd(pinfo_t *inf);
+void frk_cmd(pinfo_t *inf);
 
 /* toem_parser.c */
 int is_cmd(info_t *, char *);
@@ -140,7 +140,7 @@ char *_strcat(char *, char *);
 /* ab_str1.c */
 char *_strcpy(char *dest, char *src);
 char *_strdup(const char *str);
-void _puts(char *str);
+void _putstr(char *str);
 int _putchar(char c);
 
 /* toem_exits.c */
@@ -182,10 +182,12 @@ int _myhelp(info_t *);
 int _myhistory(info_t *);
 int _myalias(info_t *);
 
-/*toem_getline.c */
-ssize_t get_input(info_t *);
-int _getline(info_t *, char **, size_t *);
-void sigintHandler(int);
+/*_getline.c */
+ssize_t input_mybuf(pinfo_t *inf, char **buf, size_t *len);
+ssize_t get_dinput(pinfo_t *inf);
+ssize_t reads_buf(pinfo_t *inf, char *buf, size_t *);
+int _getline(pinfo_t *inf, char **ptr, size_t *len);
+void sig_inthandler(__attribute__((unused))int sig_num);
 
 /* get_inf.c */
 void clr_inf(pinfo_t *inf);
@@ -204,12 +206,12 @@ char **get_environ(info_t *);
 int _unsetenv(info_t *, char *);
 int _setenv(info_t *, char *, char *);
 
-/* toem_history.c */
-char *get_history_file(info_t *info);
-int write_history(info_t *info);
-int read_history(info_t *info);
-int build_history_list(info_t *info, char *buf, int linecount);
-int renumber_history(info_t *info);
+/* sh_history.c */
+char *gt_file_history(pinfo_t *inf);
+int write_hist(pinfo_t *inf);
+int rd_hist(pinfo_t *inf);
+int bd_hist_list(pinfo_t *inf, char *buf, int lncount);
+int renum_hist(pinfo_t *inf);
 
 /* toem_lists.c */
 slist_t *add_node(slist_t **, const char *, int);
