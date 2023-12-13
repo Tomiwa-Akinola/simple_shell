@@ -17,11 +17,11 @@ ssize_t input_mybuf(pinfo_t *inf, char **buf, size_t *len)
 	{
 		free(*buf);
 		*buf = NULL;
-		signal(SIGINT, sigintHandler);
+		signal(SIGINT, sig_inthandler);
 #if USE_GETLINE
-		r = getline(buf, &len_q, stdin);
+		b = getline(buf, &len_q, stdin);
 #else
-		r = _getline(inf, buf, &len_q);
+		b = _getline(inf, buf, &len_q);
 #endif
 		if (b > 0)
 		{
@@ -31,8 +31,8 @@ ssize_t input_mybuf(pinfo_t *inf, char **buf, size_t *len)
 				b--;
 			}
 			inf->lncount_flag = 1;
-			remove_comments(*buf);
-			build_history_list(inf, *buf, inf->historycount++);
+			rem_com(*buf);
+			bd_hist_list(inf, *buf, inf->historycount++);
 			{
 				*len = b;
 				inf->cmd_buf = buf;
@@ -52,10 +52,10 @@ ssize_t get_dinput(pinfo_t *inf)
 	static char *buf;
 	static size_t i, j, len;
 	ssize_t b = 0;
-	char **buf_p = &(info->arg), *p;
+	char **buf_p = &(inf->arg), *p;
 
 	_putchar(BUF_FLUSH);
-	r = input_mybuf(inf, &buf, &len);
+	b = input_mybuf(inf, &buf, &len);
 	if (b == -1)
 		return (-1);
 	if (len)
@@ -79,7 +79,7 @@ ssize_t get_dinput(pinfo_t *inf)
 		}
 
 		*buf_p = p;
-		return (_strlen(p));
+		return (strlen_(p));
 	}
 
 	*buf_p = buf;

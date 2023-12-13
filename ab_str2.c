@@ -42,7 +42,6 @@ int strcmp_(char *s1, char *s2)
  * strchk - checks if string starts with c
  * @string: string to search
  * @c: the substring to find
- *
  * Return: address of next char of haystack or NULL
  */
 char *strchk(const char *string, const char *c)

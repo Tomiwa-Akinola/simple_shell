@@ -66,7 +66,7 @@ int fnd_builtin(pinfo_t *inf)
 	};
 
 	for (i = 0; builtintbl[i].type; i++)
-		if (_strcmp(info->argv[0], builtintbl[i].type) == 0)
+		if (strcmp_(inf->argv[0], builtintbl[i].type) == 0)
 		{
 			inf->ln_count++;
 			built_in_ret = builtintbl[i].func(inf);
@@ -110,7 +110,7 @@ void fnd_cmd(pinfo_t *inf)
 		else if (*(inf->arg) != '\n')
 		{
 			inf->status = 127;
-			print_error(inf, "not found\n");
+			print_err(inf, "not found\n");
 		}
 	}
 }
@@ -148,7 +148,7 @@ void frk_cmd(pinfo_t *inf)
 		{
 			inf->status = WEXITSTATUS(inf->status);
 			if (inf->status == 126)
-				print_error(inf, "Permission not granted\n");
+				print_err(inf, "Permission not granted\n");
 		}
 	}
 }

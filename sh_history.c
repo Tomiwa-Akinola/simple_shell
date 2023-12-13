@@ -13,13 +13,13 @@ char *gt_file_history(pinfo_t *inf)
 	dir = _getenv(inf, "HOME=");
 	if (!dir)
 		return (NULL);
-	buf = malloc(sizeof(char) * (_strlen(dir) + _strlen(HIST_FILE) + 2));
+	buf = malloc(sizeof(char) * (strlen_(dir) + strlen_(HIST_FILE) + 2));
 	if (!buf)
 		return (NULL);
 	buf[0] = 0;
 	_strcpy(buf, dir);
-	_strcat(buf, "/");
-	_strcat(buf, HIST_FILE);
+	strcat_(buf, "/");
+	strcat_(buf, HIST_FILE);
 	return (buf);
 }
 
@@ -43,10 +43,10 @@ int write_hist(pinfo_t *inf)
 		return (-1);
 	for (node = inf->history; node; node = node->next)
 	{
-		_putsfdes(node->str, fdes);
-		_putfdes('\n', fdes);
+		putsfdes(node->str, fdes);
+		putfdes('\n', fdes);
 	}
-	_putfdes(BUF_FLUSH, fdes);
+	putfdes(BUF_FLUSH, fdes);
 	close(fdes);
 	return (1);
 }
@@ -61,7 +61,7 @@ int rd_hist(pinfo_t *inf)
 	int i, last = 0, lncount = 0;
 	ssize_t fdes, rdlen, fsize = 0;
 	struct stat st;
-	char *buf = NULL, *filename = gt_file_history(info);
+	char *buf = NULL, *filename = gt_file_history(inf);
 
 	if (!filename)
 		return (0);

@@ -118,9 +118,9 @@ void fnd_cmd(pinfo_t *inf);
 void frk_cmd(pinfo_t *inf);
 
 /* toem_parser.c */
-int is_cmd(info_t *, char *);
+int is_cmd(pinfo_t *, char *);
 char *dup_chars(char *, int, int);
-char *find_path(info_t *, char *, char *);
+char *find_path(pinfo_t *, char *, char *);
 
 /* loophsh.c */
 int loophsh(char **);
@@ -131,11 +131,11 @@ int eputchar_(char c);
 int putfdes(char c, int fdes);
 int putsfdes(char *str, int fdes);
 
-/* toem_string.c */
-int _strlen(char *);
-int _strcmp(char *, char *);
-char *starts_with(const char *, const char *);
-char *_strcat(char *, char *);
+/* ab_str2.c */
+int strlen_(char *s);
+int strcmp_(char *s1, char *s2);
+char *strchk(const char *string, const char *c);
+char *strcat_(char *dest, char *src);
 
 /* ab_str1.c */
 char *_strcpy(char *dest, char *src);
@@ -166,21 +166,21 @@ int isdelim_(char c,char *delim);
 int isalpha_(int c);
 int atoi_(char *s);
 
-/* toem_errors1.c */
-int _erratoi(char *);
-void print_error(info_t *, char *);
-int print_d(int, int);
-char *convert_number(long int, int, int);
-void remove_comments(char *);
+/* shell_err1.c */
+int err_atoi(char *s);
+void print_err(pinfo_t *inf, char *estr);
+int print_dec(int input, int fdes);
+char *conv_num(long int num, int base, int flags);
+void rem_com(char *buf);
 
 /* toem_builtin.c */
-int _myexit(info_t *);
-int _mycd(info_t *);
-int _myhelp(info_t *);
+int _myexit(pinfo_t *);
+int _mycd(pinfo_t *);
+int _myhelp(pinfo_t *);
 
 /* toem_builtin1.c */
-int _myhistory(info_t *);
-int _myalias(info_t *);
+int _myhistory(pinfo_t *);
+int _myalias(pinfo_t *);
 
 /*_getline.c */
 ssize_t input_mybuf(pinfo_t *inf, char **buf, size_t *len);
@@ -195,16 +195,16 @@ void set_inf(pinfo_t *inf, char **av);
 void free_inf(pinfo_t *inf, int all);
 
 /* toem_environ.c */
-char *_getenv(info_t *, const char *);
-int _myenv(info_t *);
-int _mysetenv(info_t *);
-int _myunsetenv(info_t *);
-int populate_env_list(info_t *);
+char *_getenv(pinfo_t *, const char *);
+int _myenv(pinfo_t *);
+int _mysetenv(pinfo_t *);
+int _myunsetenv(pinfo_t *);
+int populate_env_list(pinfo_t *);
 
 /* toem_getenv.c */
-char **get_environ(info_t *);
-int _unsetenv(info_t *, char *);
-int _setenv(info_t *, char *, char *);
+char **get_environ(pinfo_t *);
+int _unsetenv(pinfo_t *, char *);
+int _setenv(pinfo_t *, char *, char *);
 
 /* sh_history.c */
 char *gt_file_history(pinfo_t *inf);
@@ -228,10 +228,10 @@ slist_t *node_starts_with(slist_t *, char *, char);
 ssize_t get_node_index(slist_t *, slist_t *);
 
 /* toem_vars.c */
-int is_chain(info_t *, char *, size_t *);
-void check_chain(info_t *, char *, size_t *, size_t, size_t);
-int replace_alias(info_t *);
-int replace_vars(info_t *);
+int is_chain(pinfo_t *, char *, size_t *);
+void check_chain(pinfo_t *, char *, size_t *, size_t, size_t);
+int replace_alias(pinfo_t *);
+int replace_vars(pinfo_t *);
 int replace_string(char **, char *);
 
 #endif
