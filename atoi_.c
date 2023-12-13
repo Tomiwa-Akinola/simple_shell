@@ -7,7 +7,7 @@
  */
 int interactive(pinfo_t *inf)
 {
-	return (isatty(STDIN_FILENO) && inf->readfolder <= 2);
+	return (isatty(STDIN_FILENO) && inf->readfdes <= 2);
 }
 
 /**

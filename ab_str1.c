@@ -44,10 +44,10 @@ char *_strdup(const char *str)
 }
 
 /**
- * _puts - function to print an input string
+ * _putstr - function to print an input string
  * @str:string to be printed
  */
-void _puts(char *str)
+void _putstr(char *str)
 {
 	int i = 0;
 

@@ -67,8 +67,8 @@ void free_inf(pinfo_t *inf, int all)
 		ffree(inf->environ);
 			inf->environ = NULL;
 		bfree((void **)inf->cmd_buf);
-		if (inf->readfolder > 2)
-			close(inf->readfolder);
+		if (inf->readfdes > 2)
+			close(inf->readfdes);
 		_putchar(BUF_FLUSH);
 	}
 }
