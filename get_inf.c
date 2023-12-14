@@ -24,7 +24,7 @@ void set_inf(pinfo_t *inf, char **av)
 	inf->filename = av[0];
 	if (inf->arg)
 	{
-		inf->argv = strtow(inf->arg, " \t");
+		inf->argv = strtok_(inf->arg, " \t");
 		if (!inf->argv)
 		{
 
@@ -39,8 +39,8 @@ void set_inf(pinfo_t *inf, char **av)
 			;
 		inf->argc = a;
 
-		replace_alias(inf);
-		replace_vars(inf);
+		rep_alias(inf);
+		rep_var(inf);
 	}
 }
 
@@ -51,7 +51,7 @@ void set_inf(pinfo_t *inf, char **av)
  */
 void free_inf(pinfo_t *inf, int all)
 {
-	ffree(inf->argv);
+	free_str(inf->argv);
 	inf->argv = NULL;
 	inf->path = NULL;
 	if (all)
@@ -59,14 +59,14 @@ void free_inf(pinfo_t *inf, int all)
 		if (!inf->cmd_buf)
 			free(inf->arg);
 		if (inf->localenv)
-			free_list(&(inf->localenv));
+			frlist(&(inf->localenv));
 		if (inf->history)
-			free_list(&(inf->history));
+			frlist(&(inf->history));
 		if (inf->alias)
-			free_list(&(inf->alias));
-		ffree(inf->environ);
+			frlist(&(inf->alias));
+		free_str(inf->environ);
 			inf->environ = NULL;
-		bfree((void **)inf->cmd_buf);
+		free_ptr((void **)inf->cmd_buf);
 		if (inf->readfdes > 2)
 			close(inf->readfdes);
 		_putchar(BUF_FLUSH);

@@ -43,24 +43,24 @@ int cd_(pinfo_t *inf)
 		_putstr("TODO: >>getcwd failure emsg here<<\n");
 	if (!inf->argv[1])
 	{
-		dr = _getenv(inf, "HOME=");
+		dr = get_env(inf, "HOME=");
 		if (!dr)
 			cd_ret = /* TODO: what should this be? */
-				chdir((dr = _getenv(inf, "PWD=")) ? dr : "/");
+				chdir((dr = get_env(inf, "PWD=")) ? dr : "/");
 		else
 			cd_ret = chdir(dr);
 	}
 	else if (strcmp_(inf->argv[1], "-") == 0)
 	{
-		if (!_getenv(inf, "OLDPWD="))
+		if (!get_env(inf, "OLDPWD="))
 		{
 			_putstr(s);
 			_putchar('\n');
 			return (1);
 		}
-		_putstr(_getenv(inf, "OLDPWD=")), _putchar('\n');
+		_putstr(get_env(inf, "OLDPWD=")), _putchar('\n');
 		cd_ret = /* TODO: what should this be? */
-			chdir((dr = _getenv(inf, "OLDPWD=")) ? dr : "/");
+			chdir((dr = get_env(inf, "OLDPWD=")) ? dr : "/");
 	}
 	else
 		cd_ret = chdir(inf->argv[1]);
@@ -71,8 +71,8 @@ int cd_(pinfo_t *inf)
 	}
 	else
 	{
-		_setenv(inf, "OLDPWD", _getenv(inf, "PWD="));
-		_setenv(inf, "PWD", getcwd(buffer, 1024));
+		set_env(inf, "OLDPWD", get_env(inf, "PWD="));
+		set_env(inf, "PWD", getcwd(buffer, 1024));
 	}
 	return (0);
 }

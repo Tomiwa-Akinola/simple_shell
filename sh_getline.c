@@ -63,10 +63,10 @@ ssize_t get_dinput(pinfo_t *inf)
 		j = i;
 		p = buf + i;
 
-		check_chain(inf, buf, &j, i, len);
+		chk_chain(inf, buf, &j, i, len);
 		while (j < len)
 		{
-			if (is_chain(inf, buf, &j))
+			if (chain_(inf, buf, &j))
 				break;
 			j++;
 		}
@@ -131,16 +131,16 @@ int _getline(pinfo_t *inf, char **ptr, size_t *len)
 	if (b == -1 || (b == 0 && l == 0))
 		return (-1);
 
-	c = _strchr(buf + i, '\n');
+	c = strchr_(buf + i, '\n');
 	k = c ? 1 + (unsigned int)(c - buf) : l;
-	new_p = _realloc(p, s, s ? s + k : k + 1);
+	new_p = mem_realloc(p, s, s ? s + k : k + 1);
 	if (!new_p)
 		return (p ? free(p), -1 : -1);
 
 	if (s)
-		_strncat(new_p, buf + i, k - i);
+		strncat_(new_p, buf + i, k - i);
 	else
-		_strncpy(new_p, buf + i, k - i + 1);
+		strncpy_(new_p, buf + i, k - i + 1);
 
 	s += k - i;
 	i = k;

@@ -117,10 +117,10 @@ int fnd_builtin(pinfo_t *inf);
 void fnd_cmd(pinfo_t *inf);
 void frk_cmd(pinfo_t *inf);
 
-/* toem_parser.c */
-int is_cmd(pinfo_t *, char *);
-char *dup_chars(char *, int, int);
-char *find_path(pinfo_t *, char *, char *);
+/* sh_pars.c */
+int cmd_(pinfo_t *inf, char *path);
+char *dupchar_(char *path_str, int stt, int stp);
+char *fndpath(pinfo_t *inf, char *path_str, char *cmd);
 
 /* loophsh.c */
 int loophsh(char **);
@@ -143,22 +143,20 @@ char *_strdup(const char *str);
 void _putstr(char *str);
 int _putchar(char c);
 
-/* toem_exits.c */
-char *_strncpy(char *, char *, int);
-char *_strncat(char *, char *, int);
-char *_strchr(char *, char);
+/* sh_exit.c */
+char *strncpy_(char *dest, char *src, int n);
+char *strncat_(char *dest, char *src, int n);
+char *strchr_(char *str, char c);
 
-/* toem_tokenizer.c */
-char **strtow(char *, char *);
-char **strtow2(char *, char);
+/* sh_strtok.c */
+char **strtok_(char *str, char *dstr);
+char **str_tok(char *str, char dstr);
 
-/* toem_realloc.c */
-char *_memset(char *, char, unsigned int);
-void ffree(char **);
-void *_realloc(void *, unsigned int, unsigned int);
-
-/* toem_memory.c */
-int bfree(void **);
+/* mem_realloc.c */
+char *setmem(char *mem, char byt, unsigned int n);
+void free_str(char **st);
+void *mem_realloc(void *ptr, unsigned int prev_byt, unsigned int new_byt);
+int free_ptr(void **ptr);
 
 /* atoi_.c */
 int interactive(pinfo_t *inf);
@@ -197,17 +195,17 @@ void clr_inf(pinfo_t *inf);
 void set_inf(pinfo_t *inf, char **av);
 void free_inf(pinfo_t *inf, int all);
 
-/* toem_environ.c */
-char *_getenv(pinfo_t *, const char *);
-int _myenv(pinfo_t *);
-int _mysetenv(pinfo_t *);
-int _myunsetenv(pinfo_t *);
-int populate_env_list(pinfo_t *);
+/* sh_environ.c */
+int env_(pinfo_t *inf);
+char *get_env(pinfo_t *inf, const char *c);
+int setenv_(pinfo_t *inf);
+int unsetenv_(pinfo_t *inf);
+int penv_list(pinfo_t *inf);
 
-/* toem_getenv.c */
-char **get_environ(pinfo_t *);
-int _unsetenv(pinfo_t *, char *);
-int _setenv(pinfo_t *, char *, char *);
+/* sh_environ2.c */
+char **ret_env(pinfo_t *inf);
+int unset_env(pinfo_t *inf, char *var);
+int set_env(pinfo_t *inf, char *var, char *value);
 
 /* sh_history.c */
 char *gt_file_history(pinfo_t *inf);
@@ -216,25 +214,25 @@ int rd_hist(pinfo_t *inf);
 int bd_hist_list(pinfo_t *inf, char *buf, int lncount);
 int renum_hist(pinfo_t *inf);
 
-/* toem_lists.c */
-slist_t *add_node(slist_t **, const char *, int);
-slist_t *add_node_end(slist_t **, const char *, int);
-size_t print_list_str(const slist_t *);
-int delete_node_at_index(slist_t **, unsigned int);
-void free_list(slist_t **);
+/* sh_list.c */
+slist_t *addnode_(slist_t **head, const char *str, int nod);
+slist_t *node_end(slist_t **head, const char *str, int nod);
+size_t prt_liststr(const slist_t *head);
+int del_nod(slist_t **head, unsigned int ind);
+void frlist(slist_t **headptr);
 
-/* toem_lists1.c */
-size_t list_len(const slist_t *);
-char **list_to_strings(slist_t *);
-size_t print_list(const slist_t *);
-slist_t *node_starts_with(slist_t *, char *, char);
-ssize_t get_node_index(slist_t *, slist_t *);
+/* sh_list1.c */
+size_t lslen_(const slist_t *f);
+char **ls_tostr(slist_t *f);
+size_t prt_list(const slist_t *f);
+slist_t *node_stts(slist_t *nod, char *match, char c);
+ssize_t gt_nod_ind(slist_t *hd, slist_t *nd);
 
-/* toem_vars.c */
-int is_chain(pinfo_t *, char *, size_t *);
-void check_chain(pinfo_t *, char *, size_t *, size_t, size_t);
-int replace_alias(pinfo_t *);
-int replace_vars(pinfo_t *);
-int replace_string(char **, char *);
+/* sh_str_alias.c */
+int chain_(pinfo_t *inf, char *buf, size_t *ads);
+void chk_chain(pinfo_t *inf, char *buf, size_t *ads, size_t a, size_t len);
+int rep_alias(pinfo_t *inf);
+int rep_var(pinfo_t *inf);
+int rep_str(char **oldstr, char *newstr);
 
 #endif

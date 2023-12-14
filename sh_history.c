@@ -10,7 +10,7 @@ char *gt_file_history(pinfo_t *inf)
 {
 	char *buf, *dir;
 
-	dir = _getenv(inf, "HOME=");
+	dir = get_env(inf, "HOME=");
 	if (!dir)
 		return (NULL);
 	buf = malloc(sizeof(char) * (strlen_(dir) + strlen_(HIST_FILE) + 2));
@@ -94,7 +94,7 @@ int rd_hist(pinfo_t *inf)
 	free(buf);
 	inf->historycount = lncount;
 	while (inf->historycount-- >= HIST_MAX)
-		delete_node_at_index(&(inf->history), 0);
+		del_nod(&(inf->history), 0);
 	renum_hist(inf);
 	return (inf->historycount);
 }
@@ -113,7 +113,7 @@ int bd_hist_list(pinfo_t *inf, char *buf, int lncount)
 
 	if (inf->history)
 		node = inf->history;
-	add_node_end(&node, buf, lncount);
+	node_end(&node, buf, lncount);
 
 	if (!inf->history)
 		inf->history = node;

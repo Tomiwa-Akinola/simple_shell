@@ -55,11 +55,11 @@ int fnd_builtin(pinfo_t *inf)
 	int i, built_in_ret = -1;
 	builtin_t builtintbl[] = {
 		{"exit", exit_},
-		{"env", _myenv},
+		{"env", env_},
 		{"help", help_},
 		{"history", history_},
-		{"setenv", _mysetenv},
-		{"unsetenv", _myunsetenv},
+		{"setenv", setenv_},
+		{"unsetenv", unsetenv_},
 		{"cd", cd_},
 		{"alias", alias_},
 		{NULL, NULL}
@@ -96,7 +96,7 @@ void fnd_cmd(pinfo_t *inf)
 	if (!k)
 		return;
 
-	path = find_path(inf, _getenv(inf, "PATH="), inf->argv[0]);
+	path = fndpath(inf, get_env(inf, "PATH="), inf->argv[0]);
 	if (path)
 	{
 		inf->path = path;
@@ -104,8 +104,8 @@ void fnd_cmd(pinfo_t *inf)
 	}
 	else
 	{
-		if ((interactive(inf) || _getenv(inf, "PATH=")
-			|| inf->argv[0][0] == '/') && is_cmd(inf, inf->argv[0]))
+		if ((interactive(inf) || get_env(inf, "PATH=")
+			|| inf->argv[0][0] == '/') && cmd_(inf, inf->argv[0]))
 			frk_cmd(inf);
 		else if (*(inf->arg) != '\n')
 		{
@@ -132,7 +132,7 @@ void frk_cmd(pinfo_t *inf)
 	}
 	if (child_pid == 0)
 	{
-		if (execve(inf->path, inf->argv, get_environ(inf)) == -1)
+		if (execve(inf->path, inf->argv, ret_env(inf)) == -1)
 		{
 			free_inf(inf, 1);
 			if (errno == EACCES)
