@@ -25,7 +25,7 @@ int chain_(pinfo_t *inf, char *buf, size_t *ads)
 	}
 	else if (buf[a] == ';')
 	{
-		buf[a] = 0; /* replace semicolon with null */
+		buf[a] = 0;
 		inf->cmd_buf_type = CMD_CHAIN;
 	}
 	else
