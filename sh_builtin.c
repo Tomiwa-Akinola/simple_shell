@@ -40,13 +40,12 @@ int cd_(pinfo_t *inf)
 
 	s = getcwd(buffer, 1024);
 	if (!s)
-		_putstr("TODO: >>getcwd failure emsg here<<\n");
+		_putstr("try again\n");
 	if (!inf->argv[1])
 	{
 		dr = get_env(inf, "HOME=");
 		if (!dr)
-			cd_ret = /* TODO: what should this be? */
-				chdir((dr = get_env(inf, "PWD=")) ? dr : "/");
+			cd_ret = chdir((dr = get_env(inf, "PWD=")) ? dr : "/");
 		else
 			cd_ret = chdir(dr);
 	}
@@ -59,8 +58,7 @@ int cd_(pinfo_t *inf)
 			return (1);
 		}
 		_putstr(get_env(inf, "OLDPWD=")), _putchar('\n');
-		cd_ret = /* TODO: what should this be? */
-			chdir((dr = get_env(inf, "OLDPWD=")) ? dr : "/");
+		cd_ret = chdir((dr = get_env(inf, "OLDPWD=")) ? dr : "/");
 	}
 	else
 		cd_ret = chdir(inf->argv[1]);
@@ -87,7 +85,7 @@ int help_(pinfo_t *inf)
 	char **arg_arr;
 
 	arg_arr = inf->argv;
-	_putstr("This function is not yet implemented \n");
+	_putstr("function not yet implemented \n");
 	if (0)
 		_putstr(*arg_arr);
 	return (0);
