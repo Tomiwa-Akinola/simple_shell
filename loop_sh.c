@@ -126,7 +126,6 @@ void frk_cmd(pinfo_t *inf)
 	child_pid = fork();
 	if (child_pid == -1)
 	{
-		/* TODO: PUT ERROR FUNCTION */
 		perror("Error:");
 		return;
 	}
@@ -139,7 +138,6 @@ void frk_cmd(pinfo_t *inf)
 				exit(126);
 			exit(1);
 		}
-		/* TODO: PUT ERROR FUNCTION */
 	}
 	else
 	{
