@@ -105,14 +105,6 @@ int del_nod(slist_t **head, unsigned int ind)
 	if (!head || !*head)
 		return (0);
 
-	if (!ind)
-	{
-		node = *head;
-		*head = (*head)->next;
-		free(node->str);
-		free(node);
-		return (1);
-	}
 	node = *head;
 	while (node)
 	{
