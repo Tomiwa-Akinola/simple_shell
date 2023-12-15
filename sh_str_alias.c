@@ -96,7 +96,7 @@ int rep_alias(pinfo_t *inf)
 }
 
 /**
- * repl_var - function to replace var in the tokenized string
+ * rep_var - function to replace var in the tokenized string
  * @inf: struct
  * Return: 1 if replaced, otherwise 0
  */
