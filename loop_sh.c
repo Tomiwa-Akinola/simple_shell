@@ -22,6 +22,8 @@ int mainsh(pinfo_t *inf, char **av)
 		{
 			set_inf(inf, av);
 			bn_ret = fnd_builtin(inf);
+			if (bn_ret == -1)
+				fnd_cmd(inf);
 		}
 		else if (interactive(inf))
 			_putchar('\n');

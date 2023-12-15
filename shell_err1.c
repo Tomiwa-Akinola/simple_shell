@@ -22,8 +22,6 @@ int err_atoi(char *s)
 			if (res > INT_MAX)
 				return (-1);
 		}
-		else
-			return (-1);
 	}
 	return (res);
 }
